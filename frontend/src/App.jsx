@@ -111,4 +111,41 @@ export default function App() {
       setIsSubmitting(false);
     }
   };
+
+  const confirmDeleteBook = async () => {
+    if(!BookToDelete) return;
+    try{
+      await deleteBook(bookToDelete.id);
+      showToast(`Successfully deleted "${bookToDelete.title}"`, 'success');
+      setBookToDelete(null);
+      loadBooks();
+    }
+    catch(err){
+      showToast(err.message, 'error');
+    }
+  };
+
+  return (
+    <div style={{ minHeight: '100vh', paddingBottom: '60px' }}>
+      <NavBar 
+        OnOpenAddModal={handleOpenAddModal}
+        isConnected={isConnected}
+        totalCount={totalCount}
+      />
+      <main style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
+        <StatCards books={books} totalCount={totalCount} />
+
+        <FilterBar
+          queryParams={queryParams}
+          onQueryChange={handleQueryChange}
+          onResetFilters={handleResetFilters}
+          viewMode={viewMode}
+          onViewModeChange={setViewMode}
+          availableGenres={availableGenres}
+        />
+
+        
+      </main>
+    </div>
+  );
 }

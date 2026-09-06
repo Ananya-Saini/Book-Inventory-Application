@@ -36,7 +36,7 @@ public class BookController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<BookResponseDto>> GetBookById(int id)
     {
-        var book = await _bookService.GetBookByIdAsync(id);
+        var book = await _bookService.GetByIdAsync(id);
         if (book == null)
         {
             return NotFound(new ProblemDetails
@@ -57,7 +57,7 @@ public class BookController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var createdBook = await _bookService.CreateBookAsync(bookDto);
+        var createdBook = await _bookService.AddAsync(bookDto);
         return CreatedAtAction(nameof(GetBookById), new { id = createdBook.Id }, createdBook);
     }
 
@@ -69,7 +69,7 @@ public class BookController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var updatedBook = await _bookService.UpdateBookAsync(id, bookDto);
+        var updatedBook = await _bookService.UpdateAsync(id, bookDto);
         if (updatedBook == null)
         {
             return NotFound(new ProblemDetails
@@ -85,7 +85,7 @@ public class BookController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteBook(int id)
     {
-        var result = await _bookService.DeleteBookAsync(id);
+        var result = await _bookService.DeleteAsync(id);
         if (!result)
         {
             return NotFound();
