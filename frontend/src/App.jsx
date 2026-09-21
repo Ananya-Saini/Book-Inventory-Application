@@ -144,7 +144,56 @@ export default function App() {
           availableGenres={availableGenres}
         />
 
-        
+        {isLoading ? (
+          <div className="glass-panel" style={{ padding: '60px', textAlign: 'center', color: 'var(--text-muted)' }}>
+            <RefreshCw size={32} className="animate-spin" style={{ margin: '0 auto 16px', color: 'var(--accent-primary)' }} />
+            <p style={{ fontWeight: 600 }}>Loading inventory records...</p>
+          </div>
+        ) : error ? (
+          <div className="glass-panel" style={{ padding: '40px', textAlign: 'center', borderColor: 'rgba(239, 68, 68, 0.4)' }}>
+            <AlertCircle size={40} color="#f87171" style={{ margin: '0 auto 12px' }} />
+            <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#f87171', marginBottom: '6px' }}>
+              Connection Error
+            </h3>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '16px', maxWidth: '480px', margin: '0 auto 16px' }}>
+              {error}
+            </p>
+            <button className="btn btn-primary" onClick={loadBooks}>
+              <RefreshCw size={16} /> Retry Connection
+            </button>
+          </div>
+        ) : books.length === 0? (
+          <div className="glass-panel" style={{ padding: '60px', textAlign: 'center', color: 'var(--text-muted)' }}>
+            <BookOpen size={48} color="#64748b" style={{ margin: '0 auto 16px', opacity: 0.5 }} />
+            <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>
+              No Books Found
+            </h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-dim)', marginBottom: '18px' }}>
+              Try adjusting your search criteria or add a new book to the inventory.
+            </p>
+            <button className="btn btn-secondary" onClick={handleResetFilters}>
+              Reset Filters
+            </button>
+          </div>
+        ) : (
+          <>
+            {viewMode === 'grid' ? (
+              <BookGrid
+                books={books}
+                onViewBook={(book) => getSelectedBookDetails(book)}
+                onEditBook={handleOpenEditModal}
+                onDeleteBook={(book) => setBookToDelete(book)}
+              />
+            ) : (
+              <BookTable
+                books={books}
+                onViewBook={(book) => getSelectedBookDetails(book)}
+                onEditBook={handleOpenEditModal}
+                onDeleteBook={(book) => setBookToDelete(book)}
+              />
+            )}
+          </>
+        )}
       </main>
     </div>
   );
