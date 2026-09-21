@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 export default function App() {
   const [books, setBooks] = useState([]);
@@ -31,13 +31,13 @@ export default function App() {
   const [toast, setToast] = useState(null);
 
   const showToast = (message, type = 'success') => {
-    setToast({message, type});
+    setToast({ message, type });
   };
 
-  const loadBooks = useCallback( async => {
+  const loadBooks = useCallback(async => {
     setIsLoading(true);
     setError(null);
-    try{
+    try {
       const data = fetchBooks(queryParams);
       setBooks(data.items || []);
       setTotalCount(data.totalCount || 0);
@@ -64,8 +64,8 @@ export default function App() {
     ...books.map(b => b.genre).filter(Boolean)
   ])).sort();
 
-  const handleQueryChange = (newParams) =>{
-    setQueryParams(prev => ({...prev, ...newParams}));
+  const handleQueryChange = (newParams) => {
+    setQueryParams(prev => ({ ...prev, ...newParams }));
   };
 
   const handleResetFilters = () => {
@@ -92,11 +92,11 @@ export default function App() {
   const handleBookFormSubmit = async (FormData) => {
     setIsSubmitting(true);
     try {
-      if(bookToEdit){
+      if (bookToEdit) {
         await updateBook(bookToEdit.id, FormData);
         showToast(`Successfully updated "${FormData.title}"`, 'success');
       }
-      else{
+      else {
         await createBook(FormData);
         showToast(`Successfully added "${FormData.title}"`, 'success');
       }
@@ -104,30 +104,30 @@ export default function App() {
       setBookToEdit(null);
       loadBooks();
     }
-    catch(er){
+    catch (er) {
       showToast(err.message, 'error');
     }
-    finally{
+    finally {
       setIsSubmitting(false);
     }
   };
 
   const confirmDeleteBook = async () => {
-    if(!BookToDelete) return;
-    try{
+    if (!BookToDelete) return;
+    try {
       await deleteBook(bookToDelete.id);
       showToast(`Successfully deleted "${bookToDelete.title}"`, 'success');
       setBookToDelete(null);
       loadBooks();
     }
-    catch(err){
+    catch (err) {
       showToast(err.message, 'error');
     }
   };
 
   return (
     <div style={{ minHeight: '100vh', paddingBottom: '60px' }}>
-      <NavBar 
+      <NavBar
         OnOpenAddModal={handleOpenAddModal}
         isConnected={isConnected}
         totalCount={totalCount}
@@ -162,7 +162,7 @@ export default function App() {
               <RefreshCw size={16} /> Retry Connection
             </button>
           </div>
-        ) : books.length === 0? (
+        ) : books.length === 0 ? (
           <div className="glass-panel" style={{ padding: '60px', textAlign: 'center', color: 'var(--text-muted)' }}>
             <BookOpen size={48} color="#64748b" style={{ margin: '0 auto 16px', opacity: 0.5 }} />
             <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>
@@ -192,9 +192,62 @@ export default function App() {
                 onDeleteBook={(book) => setBookToDelete(book)}
               />
             )}
+            <Pagination
+              pageNumber={queryParams.pageNumber}
+              totalPages={totalPages}
+              totalCount={totalCount}
+              pageSize={queryParams.pageSize}
+              hasNext={hasNext}
+              hasPrevious={hasPrevious}
+              onPageChange={(page) => handleQueryChange({ pageNumber: page })}
+            />
           </>
         )}
       </main>
+
+      <BookModel
+        isOpen={isBookModalOpen}
+        onClose={() => { setIsBookModalOpen(false); setBookToEdit(null); }}
+        onSubmit={handleBookFormSubmit}
+        bookToEdit={bookToEdit}
+        isSubmitting={isSubmitting}
+      />
+
+      <BookDetailModel
+        book={selectedBookDetail}
+        onClose={() => setSelectedBookDetail(null)}
+      />
+
+      {bookToDelete && (
+        <div className="modal-overlay">
+          <div className="modal-content" style={{ padding: '24px', maxWidth: '440px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+              <div style={{ background: 'rgba(239, 68, 68, 0.2)', padding: '10px', borderRadius: '12px' }}>
+                <Trash2 size={24} color="#f87171" />
+              </div>
+              <div>
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#ffffff' }}>Confirm Deletion</h3>
+                <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>This action cannot be undone.</p>
+              </div>
+            </div>
+
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-main)', marginBottom: '20px' }}>
+              Are you sure you want to remove <strong>"{bookToDelete.title}"</strong> (ISBN: {bookToDelete.isbn}) from the inventory?
+            </p>
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+              <button className="btn btn-secondary" onClick={() => setBookToDelete(null)}>
+                Cancel
+              </button>
+              <button className="btn btn-danger" onClick={confirmDeleteBook}>
+                Delete Book
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <ToastComponent toast={toast} onClose={() => setToast(null)} />
     </div>
   );
 }
