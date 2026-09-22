@@ -1,66 +1,109 @@
 import React from 'react';
-import { BookOpen, Plus, Server } from 'lucide-react';
+import { BookOpen, Plus } from 'lucide-react';
 
-export default function Navbar({ OnOpenAddModal, isConnected, totalCount }) {
+export default function Navbar({ onOpenAddModal, OnOpenAddModal, isConnected, totalCount }) {
+    const handleAddClick = onOpenAddModal || OnOpenAddModal;
+
     return (
-        <header className="glass-nav sticky top-0 z-50 px-6 py-4 mb-8">
-            <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+        <header className="glass-nav sticky top-0 z-50 mb-8" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
+            <div style={{
+                maxWidth: '1280px',
+                margin: '0 auto',
+                padding: '0 24px',
+                height: '68px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '16px'
+            }}>
+                {/* Brand Logo & Name */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <div style={{
-                        background: 'linear-gradient(135deg, #6366f1 0%, #06b6d4 100%)',
-                        padding: '10px',
-                        borderRadius: '12px',
-                        boxShadow: '0 4px 15px rgba(99, 102, 241, 0.4)',
+                        background: '#2563eb',
+                        width: '38px',
+                        height: '38px',
+                        borderRadius: '10px',
+                        boxShadow: '0 2px 8px rgba(37, 99, 235, 0.25)',
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center'
+                        justifyContent: 'center',
+                        flexShrink: 0
                     }}>
-                        <BookOpen size={24} color="#ffffff" />
+                        <BookOpen size={20} color="#ffffff" />
                     </div>
-                    <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <h1 style={{ fontSize: '1.4rem', fontWeight: '800', letterSpacing: '-0.02em', background: 'linear-gradient(to right, #ffffff, #cbd5e1)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                                Books A2Z
-                            </h1>
-                            <span className="badge badge-tech" style={{ fontSize: '0.7rem' }}>
-                                Inventory v1.0
-                            </span>
-                        </div>
-                        <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                            Layered ASP.NET Core & React Inventory Hub
-                        </p>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <h1 style={{
+                            fontSize: '1.25rem',
+                            fontWeight: 700,
+                            letterSpacing: '-0.025em',
+                            color: '#0f172a',
+                            margin: 0,
+                            lineHeight: 1
+                        }}>
+                            Books A2Z
+                        </h1>
+                        <span style={{
+                            fontSize: '0.72rem',
+                            fontWeight: 600,
+                            padding: '2px 8px',
+                            borderRadius: '6px',
+                            background: '#f1f5f9',
+                            color: '#475569',
+                            border: '1px solid #e2e8f0'
+                        }}>
+                            v1.0
+                        </span>
                     </div>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+
+                {/* Right Actions & Status */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    {/* Live Status Pill */}
                     <div style={{
                         display: 'flex',
                         alignItems: 'center',
                         gap: '8px',
-                        padding: '6px 14px',
-                        background: 'rgba(15, 23, 42, 0.6)',
-                        borderRadius: '999px',
-                        border: '1px solid var(--border-subtle)',
+                        padding: '6px 12px',
+                        background: '#ffffff',
+                        borderRadius: '8px',
+                        border: '1px solid #e2e8f0',
                         fontSize: '0.8rem',
-                        color: 'var(--text-muted)'
+                        color: '#64748b'
                     }}>
-                        <Server size={14} color={isConnected ? '#10b981' : '#ef4444'} />
-                        <span>API: {isConnected ? <span style={{ color: '#34d399', fontWeight: 600 }}>Connected</span> : <span style={{ color: '#f87171', fontWeight: 600 }}>Connecting...</span>}</span>
+                        <span style={{
+                            width: '7px',
+                            height: '7px',
+                            borderRadius: '50%',
+                            background: isConnected ? '#16a34a' : '#dc2626',
+                            boxShadow: isConnected ? '0 0 0 3px rgba(22, 163, 74, 0.18)' : '0 0 0 3px rgba(220, 38, 38, 0.18)'
+                        }} />
+                        <span style={{ fontWeight: 500, color: isConnected ? '#15803d' : '#b91c1c' }}>
+                            {isConnected ? 'Live Sync' : 'Connecting...'}
+                        </span>
                         {totalCount !== undefined && (
-                            <span style={{ marginLeft: '6px', paddingLeft: '8px', borderLeft: '1px solid #334155', color: '#cbd5e1', fontWeight: 600 }}>
+                            <span style={{
+                                marginLeft: '4px',
+                                paddingLeft: '8px',
+                                borderLeft: '1px solid #e2e8f0',
+                                color: '#334155',
+                                fontWeight: 600
+                            }}>
                                 {totalCount} Books
                             </span>
                         )}
                     </div>
 
+                    {/* Add Book CTA */}
                     <button
                         className="btn btn-primary"
-                        onClick={onOpenAddModal}
+                        onClick={handleAddClick}
+                        style={{ height: '38px', padding: '0 16px', fontSize: '0.86rem' }}
                     >
-                        <Plus size={18} />
+                        <Plus size={16} />
                         <span>Add Book</span>
                     </button>
                 </div>
             </div>
-        </header >
+        </header>
     );
 }

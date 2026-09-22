@@ -11,18 +11,19 @@ export default function BookDetailModel({ book, onClose }) {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', paddingBottom: '14px', borderBottom: '1px solid var(--border-subtle)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{
-              background: 'linear-gradient(135deg, #6366f1 0%, #06b6d4 100%)',
+              background: '#2563eb',
               padding: '10px',
-              borderRadius: '12px',
+              borderRadius: '10px',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              boxShadow: '0 2px 8px rgba(37, 99, 235, 0.25)'
             }}>
-              <BookOpen size={22} color="#ffffff" />
+              <BookOpen size={20} color="#ffffff" />
             </div>
             <div>
               <span className="badge badge-tech" style={{ marginBottom: '4px' }}>Book Details</span>
-              <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-main)' }}>
+              <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-main)' }}>
                 {book.title}
               </h2>
             </div>
@@ -36,56 +37,56 @@ export default function BookDetailModel({ book, onClose }) {
           </button>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '20px' }}>
           
-          <div className="glass-panel" style={{ padding: '14px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.78rem', color: 'var(--text-dim)', marginBottom: '4px' }}>
-              <User size={14} color="#818cf8" />
+          <div style={{ padding: '14px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '4px' }}>
+              <User size={14} color="#64748b" />
               <span>AUTHOR</span>
             </div>
-            <p style={{ fontWeight: 700, color: 'var(--text-main)', fontSize: '0.98rem' }}>{book.author}</p>
+            <p style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '0.95rem' }}>{book.author}</p>
           </div>
 
-          <div className="glass-panel" style={{ padding: '14px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.78rem', color: 'var(--text-dim)', marginBottom: '4px' }}>
-              <Tag size={14} color="#38bdf8" />
+          <div style={{ padding: '14px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '4px' }}>
+              <Tag size={14} color="#64748b" />
               <span>GENRE</span>
             </div>
-            <p style={{ fontWeight: 700, color: 'var(--text-main)', fontSize: '0.98rem' }}>{book.genre}</p>
+            <p style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '0.95rem' }}>{book.genre}</p>
           </div>
 
-          <div className="glass-panel" style={{ padding: '14px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.78rem', color: 'var(--text-dim)', marginBottom: '4px' }}>
-              <Hash size={14} color="#6366f1" />
+          <div style={{ padding: '14px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '4px' }}>
+              <Hash size={14} color="#64748b" />
               <span>ISBN</span>
             </div>
-            <p style={{ fontWeight: 700, color: '#818cf8', fontFamily: 'var(--font-mono)', fontSize: '0.95rem' }}>{book.isbn}</p>
+            <p style={{ fontWeight: 600, color: '#0f172a', fontFamily: 'var(--font-mono)', fontSize: '0.92rem' }}>{book.isbn}</p>
           </div>
 
-          <div className="glass-panel" style={{ padding: '14px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.78rem', color: 'var(--text-dim)', marginBottom: '4px' }}>
-              <DollarSign size={14} color="#10b981" />
+          <div style={{ padding: '14px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '4px' }}>
+              <DollarSign size={14} color="#16a34a" />
               <span>PRICE</span>
             </div>
-            <p style={{ fontWeight: 800, color: '#38bdf8', fontSize: '1.2rem' }}>${Number(book.price).toFixed(2)}</p>
+            <p style={{ fontWeight: 800, color: '#2563eb', fontSize: '1.2rem' }}>${Number(book.price).toFixed(2)}</p>
           </div>
 
-          <div className="glass-panel" style={{ padding: '14px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.78rem', color: 'var(--text-dim)', marginBottom: '4px' }}>
-              <Package size={14} color="#f59e0b" />
+          <div style={{ padding: '14px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '4px' }}>
+              <Package size={14} color="#d97706" />
               <span>STOCK QUANTITY</span>
             </div>
-            <p style={{ fontWeight: 700, color: 'var(--text-main)', fontSize: '0.98rem' }}>
+            <p style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '0.95rem' }}>
               {book.stockQuantity} units
             </p>
           </div>
 
-          <div className="glass-panel" style={{ padding: '14px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.78rem', color: 'var(--text-dim)', marginBottom: '4px' }}>
-              <Calendar size={14} color="#ec4899" />
+          <div style={{ padding: '14px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '4px' }}>
+              <Calendar size={14} color="#64748b" />
               <span>PUBLISHED DATE</span>
             </div>
-            <p style={{ fontWeight: 700, color: 'var(--text-main)', fontSize: '0.95rem' }}>
+            <p style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '0.92rem' }}>
               {new Date(book.publishedDate).toLocaleDateString(undefined, { dateStyle: 'full' })}
             </p>
           </div>
@@ -99,7 +100,7 @@ export default function BookDetailModel({ book, onClose }) {
           paddingTop: '14px',
           borderTop: '1px solid var(--border-subtle)',
           fontSize: '0.78rem',
-          color: 'var(--text-dim)'
+          color: 'var(--text-muted)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <Clock size={14} />

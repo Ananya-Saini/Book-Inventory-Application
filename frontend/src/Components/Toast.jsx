@@ -22,39 +22,40 @@ export default function Toast({ toast, onClose }) {
       bottom: '24px',
       right: '24px',
       zIndex: 1000,
-      minWidth: '300px',
-      maxWidth: '420px',
-      background: isError ? '#1f1315' : isSuccess ? '#0d1f18' : '#131b2e',
-      border: `1px solid ${isError ? 'rgba(239, 68, 68, 0.4)' : isSuccess ? 'rgba(16, 185, 129, 0.4)' : 'rgba(99, 102, 241, 0.4)'}`,
-      borderRadius: '12px',
+      minWidth: '320px',
+      maxWidth: '440px',
+      background: '#ffffff',
+      border: `1px solid ${isError ? '#fecaca' : isSuccess ? '#bbf7d0' : '#dbeafe'}`,
+      borderLeft: `4px solid ${isError ? '#dc2626' : isSuccess ? '#16a34a' : '#2563eb'}`,
+      borderRadius: '10px',
       padding: '14px 18px',
-      boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+      boxShadow: '0 10px 25px -5px rgba(15, 23, 42, 0.12), 0 8px 10px -6px rgba(15, 23, 42, 0.08)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
       gap: '12px',
-      animation: 'slideUp 0.25s ease-out'
+      animation: 'slideUp 0.2s ease-out'
     }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         {isError ? (
-          <AlertCircle size={20} color="#f87171" />
+          <AlertCircle size={20} color="#dc2626" />
         ) : isSuccess ? (
-          <CheckCircle2 size={20} color="#34d399" />
+          <CheckCircle2 size={20} color="#16a34a" />
         ) : (
-          <Info size={20} color="#818cf8" />
+          <Info size={20} color="#2563eb" />
         )}
         <div>
-          <h4 style={{ fontSize: '0.88rem', fontWeight: 700, color: '#ffffff' }}>
+          <h4 style={{ fontSize: '0.88rem', fontWeight: 700, color: '#0f172a' }}>
             {isError ? 'Error' : isSuccess ? 'Success' : 'Notice'}
           </h4>
-          <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+          <p style={{ fontSize: '0.82rem', color: '#64748b' }}>
             {toast.message}
           </p>
         </div>
       </div>
       <button
         onClick={onClose}
-        style={{ background: 'none', border: 'none', color: 'var(--text-dim)', cursor: 'pointer', padding: '4px' }}
+        style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: '4px' }}
       >
         <X size={16} />
       </button>

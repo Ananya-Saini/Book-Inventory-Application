@@ -1,4 +1,6 @@
+import React from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+
 export default function Pagination({
     pageNumber = 1,
     totalPages = 1,
@@ -27,7 +29,7 @@ export default function Pagination({
             pages.push(i);
         }
         return pages;
-    }
+    };
 
     return (
         <div className="glass-panel" style={{
@@ -43,7 +45,6 @@ export default function Pagination({
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                {/* Previous Button */}
                 <button
                     className="btn btn-secondary"
                     style={{ padding: '6px 12px', fontSize: '0.82rem' }}
@@ -62,12 +63,13 @@ export default function Pagination({
                             width: '34px',
                             height: '34px',
                             borderRadius: '8px',
-                            border: p === pageNumber ? '1px solid var(--accent-primary)' : '1px solid var(--border-subtle)',
-                            background: p === pageNumber ? 'var(--accent-primary)' : 'rgba(15, 23, 42, 0.6)',
-                            color: p === pageNumber ? '#ffffff' : 'var(--text-muted)',
+                            border: p === pageNumber ? '1px solid #2563eb' : '1px solid #e2e8f0',
+                            background: p === pageNumber ? '#2563eb' : '#ffffff',
+                            color: p === pageNumber ? '#ffffff' : '#475569',
                             fontWeight: p === pageNumber ? 700 : 500,
                             cursor: 'pointer',
-                            fontSize: '0.85rem'
+                            fontSize: '0.85rem',
+                            transition: 'all 0.15s ease'
                         }}
                     >
                         {p}

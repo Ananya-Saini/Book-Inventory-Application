@@ -1,3 +1,4 @@
+import React from 'react';
 import { Eye, Edit3, Trash2, Calendar, Hash, AlertTriangle } from 'lucide-react';
 
 export default function BookGrid({ books, onViewBook, onEditBook, onDeleteBook }) {
@@ -19,8 +20,8 @@ export default function BookGrid({ books, onViewBook, onEditBook, onDeleteBook }
       marginBottom: '28px'
     }}>
       {books.map((book) => {
-        const isLowStock = book.stock <= 5;
-        const isOutOfStock = book.stock === 0;
+        const isLowStock = (book.stockQuantity ?? 0) <= 5;
+        const isOutOfStock = (book.stockQuantity ?? 0) === 0;
         return (
           <div
             key={book.id}
@@ -51,10 +52,10 @@ export default function BookGrid({ books, onViewBook, onEditBook, onDeleteBook }
                 )}
               </div>
               <h3 style={{
-                fontSize: '1.15rem',
+                fontSize: '1.1rem',
                 fontWeight: 700,
                 color: 'var(--text-main)',
-                lineHeight: 1.3,
+                lineHeight: 1.35,
                 marginBottom: '6px',
                 display: '-webkit-box',
                 WebkitLineClamp: 2,
@@ -64,7 +65,7 @@ export default function BookGrid({ books, onViewBook, onEditBook, onDeleteBook }
                 {book.title}
               </h3>
 
-              <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', fontWeight: 500, marginBottom: '14px' }}>
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 500, marginBottom: '14px' }}>
                 by {book.author}
               </p>
 
@@ -73,18 +74,19 @@ export default function BookGrid({ books, onViewBook, onEditBook, onDeleteBook }
                 flexDirection: 'column',
                 gap: '6px',
                 fontSize: '0.78rem',
-                color: 'var(--text-dim)',
-                background: 'rgba(15, 23, 42, 0.4)',
+                color: '#64748b',
+                background: '#f8fafc',
+                border: '1px solid #f1f5f9',
                 padding: '8px 12px',
                 borderRadius: '8px',
                 marginBottom: '16px'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <Hash size={14} color="#6366f1" />
+                  <Hash size={13} color="#64748b" />
                   <span style={{ fontFamily: 'var(--font-mono)' }}>{book.isbn}</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <Calendar size={14} color="#06b6d4" />
+                  <Calendar size={13} color="#64748b" />
                   <span>{new Date(book.publishedDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</span>
                 </div>
               </div>
@@ -98,8 +100,8 @@ export default function BookGrid({ books, onViewBook, onEditBook, onDeleteBook }
               borderTop: '1px solid var(--border-subtle)'
             }}>
               <div>
-                <span style={{ fontSize: '0.7rem', color: 'var(--text-dim)', textTransform: 'uppercase', display: 'block' }}>Price</span>
-                <span style={{ fontSize: '1.25rem', fontWeight: 800, color: '#38bdf8' }}>
+                <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)', textTransform: 'uppercase', fontWeight: 600, display: 'block', letterSpacing: '0.04em' }}>Price</span>
+                <span style={{ fontSize: '1.25rem', fontWeight: 800, color: '#2563eb' }}>
                   ${Number(book.price).toFixed(2)}
                 </span>
               </div>
@@ -110,14 +112,14 @@ export default function BookGrid({ books, onViewBook, onEditBook, onDeleteBook }
                   onClick={() => onViewBook(book)}
                   title="View Details"
                 >
-                  <Eye size={16} color="#94a3b8" />
+                  <Eye size={16} color="#64748b" />
                 </button>
                 <button
                   className="btn btn-secondary btn-icon"
                   onClick={() => onEditBook(book)}
                   title="Edit Book"
                 >
-                  <Edit3 size={16} color="#818cf8" />
+                  <Edit3 size={16} color="#2563eb" />
                 </button>
                 <button
                   className="btn btn-danger btn-icon"
@@ -129,7 +131,6 @@ export default function BookGrid({ books, onViewBook, onEditBook, onDeleteBook }
               </div>
             </div>
           </div>
-
         );
       })}
     </div>

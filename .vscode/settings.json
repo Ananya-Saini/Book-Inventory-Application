@@ -1,3 +1,5 @@
 {
-    "dotnet.defaultSolution": "Book Inventory App.slnx"
+    "dotnet.defaultSolution": "Book Inventory App.slnx",
+    "material-icon-theme.folders.theme": "specific",
+    "material-icon-theme.opacity": 0.9
 }

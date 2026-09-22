@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("api/[controller]")]
+[Route("api/books")]
 public class BookController : ControllerBase
 {
     private readonly IBookService _bookService;

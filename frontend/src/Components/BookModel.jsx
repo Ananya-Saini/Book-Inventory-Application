@@ -74,22 +74,22 @@ export default function BookModel({ isOpen, onClose, onSubmit, bookToEdit = null
         onSubmit(payload);
     };
 
-    eturn(
+    return (
         <div className="modal-overlay">
             <div className="modal-content" style={{ padding: '28px' }}>
-
                 {/* Header */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', paddingBottom: '14px', borderBottom: '1px solid var(--border-subtle)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         <div style={{
-                            background: isEdit ? 'rgba(99, 102, 241, 0.2)' : 'rgba(16, 185, 129, 0.2)',
+                            background: isEdit ? '#eff6ff' : '#f0fdf4',
                             padding: '8px',
-                            borderRadius: '10px'
+                            borderRadius: '8px',
+                            border: `1px solid ${isEdit ? '#dbeafe' : '#dcfce7'}`
                         }}>
-                            {isEdit ? <Save size={20} color="#818cf8" /> : <PlusCircle size={20} color="#34d399" />}
+                            {isEdit ? <Save size={20} color="#2563eb" /> : <PlusCircle size={20} color="#16a34a" />}
                         </div>
                         <div>
-                            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-main)' }}>
+                            <h2 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-main)' }}>
                                 {isEdit ? 'Edit Book Record' : 'Add New Book'}
                             </h2>
                             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
@@ -105,6 +105,7 @@ export default function BookModel({ isOpen, onClose, onSubmit, bookToEdit = null
                         <X size={18} />
                     </button>
                 </div>
+
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label className="form-label">
@@ -119,6 +120,7 @@ export default function BookModel({ isOpen, onClose, onSubmit, bookToEdit = null
                             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                         />
                     </div>
+
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                         <div className="form-group">
                             <label className="form-label">
@@ -161,9 +163,9 @@ export default function BookModel({ isOpen, onClose, onSubmit, bookToEdit = null
                             value={formData.isbn}
                             disabled={isEdit}
                             onChange={(e) => setFormData({ ...formData, isbn: e.target.value })}
-                            style={isEdit ? { opacity: 0.6, cursor: 'not-allowed' } : {}}
+                            style={isEdit ? { background: '#f1f5f9', cursor: 'not-allowed', color: '#64748b' } : {}}
                         />
-                        {isEdit && <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>ISBN cannot be modified once created.</span>}
+                        {isEdit && <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)', marginTop: '4px' }}>ISBN cannot be modified once created.</span>}
                     </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' }}>
