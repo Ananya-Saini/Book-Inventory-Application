@@ -8,8 +8,8 @@ public interface IBookService
 {
     Task<ActionResult<PagedResult<BookResponseDto>>> GetBooks(BookQueryParameters queryParameters);
     Task<Book?> GetByIdAsync(int id);
-    Task<Book> AddAsync(Book book);
-    Task<bool> UpdateAsync(Book book);
+    Task<BookResponseDto> AddAsync(CreateBookDto dto);
+    Task<bool> UpdateAsync(int id, UpdateBookDto dto);
     Task<bool> DeleteAsync(int id);
     Task<bool> ExistsByIsbnAsync(string isbn, int? excludeId = null);
 }

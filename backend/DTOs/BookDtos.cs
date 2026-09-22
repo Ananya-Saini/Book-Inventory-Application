@@ -30,6 +30,30 @@ public class CreateBookDto
     public DateTime PublishedDate { get; set; }
 }
 
+public class UpdateBookDto
+{
+    [Required(ErrorMessage = "Title is required.")]
+    [StringLength(200, ErrorMessage = "Title cannot exceed 200 characters.")]
+    public string Title { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = "Author is required.")]
+    [StringLength(100, ErrorMessage = "Author cannot exceed 100 characters.")]
+    public string Author { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = "Genre is required.")]
+    [StringLength(50, ErrorMessage = "Genre cannot exceed 50 characters.")]
+    public string Genre { get; set; } = string.Empty;
+
+    [Range(0.01, 10000.00, ErrorMessage = "Price must be between 0.01 and 10,000.00.")]
+    public decimal Price { get; set; }
+
+    [Range(0, 100000, ErrorMessage = "Stock quantity must be a non-negative integer.")]
+    public int StockQuantity { get; set; }
+
+    [Required(ErrorMessage = "Published date is required.")]
+    public DateTime PublishedDate { get; set; }
+}
+
 public class BookResponseDto
 {
     public int Id { get; set; }

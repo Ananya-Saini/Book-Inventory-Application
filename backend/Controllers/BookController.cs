@@ -50,11 +50,22 @@ public class BookController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<BookResponseDto>> CreateBook([FromBody] BookDto bookDto)
+    public async Task<ActionResult<BookResponseDto>> CreateBook([FromBody] CreateBookDto bookDto)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
+        }
+
+        if (await _bookService.ExistsByIsbnAsync(bookDto.Isbn))
+        {
+            return Conflict(new ProblemDetails
+            {
+                Status = 409,
+                Title = "Conflict",
+                Detail = $"A book with ISBN '{bookDto.Isbn}' already exists in inventory.",
+                Type = "https://tools.ietf.org/html/rfc7231#section-6.5.8"
+            });
         }
 
         var createdBook = await _bookService.AddAsync(bookDto);
@@ -62,15 +73,15 @@ public class BookController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<BookResponseDto>> UpdateBook(int id, [FromBody] BookDto bookDto)
+    public async Task<ActionResult<BookResponseDto>> UpdateBook(int id, [FromBody] UpdateBookDto bookDto)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
 
-        var updatedBook = await _bookService.UpdateAsync(id, bookDto);
-        if (updatedBook == null)
+        var updated = await _bookService.UpdateAsync(id, bookDto);
+        if (!updated)
         {
             return NotFound(new ProblemDetails
             {
@@ -79,7 +90,8 @@ public class BookController : ControllerBase
                 Detail = $"Book with ID {id} was not found."
             });
         }
-        return Ok(updatedBook);
+
+        return NoContent();
     }
 
     [HttpDelete("{id}")]

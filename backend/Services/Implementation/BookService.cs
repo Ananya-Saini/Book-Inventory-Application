@@ -76,13 +76,36 @@ public class BookService : IBookService
         return await _bookRepository.GetByIdAsync(id);
     }
 
-    public async Task<Book> AddAsync(Book book)
+    public async Task<BookResponseDto> AddAsync(CreateBookDto dto)
     {
-        return await _bookRepository.AddAsync(book);
+        var book = new Book
+        {
+            Title = dto.Title.Trim(),
+            Author = dto.Author.Trim(),
+            Genre = dto.Genre.Trim(),
+            Isbn = dto.Isbn.Trim(),
+            Price = dto.Price,
+            StockQuantity = dto.StockQuantity,
+            PublishedDate = dto.PublishedDate,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        await _bookRepository.AddAsync(book);
+        return MapToDto(book);
     }
 
-    public async Task<bool> UpdateAsync(Book book)
+    public async Task<bool> UpdateAsync(int id, UpdateBookDto dto)
     {
+        var book = await _bookRepository.GetByIdAsync(id);
+        if (book == null) return false;
+
+        book.Title = dto.Title.Trim();
+        book.Author = dto.Author.Trim();
+        book.Genre = dto.Genre.Trim();
+        book.Price = dto.Price;
+        book.StockQuantity = dto.StockQuantity;
+        book.PublishedDate = dto.PublishedDate;
+
         return await _bookRepository.UpdateAsync(book);
     }
 
@@ -95,4 +118,17 @@ public class BookService : IBookService
     {
         return await _bookRepository.ExistsByIsbnAsync(isbn, excludeId);
     }
+
+    private static BookResponseDto MapToDto(Book book) => new BookResponseDto
+    {
+        Id = book.Id,
+        Title = book.Title,
+        Author = book.Author,
+        Genre = book.Genre,
+        Isbn = book.Isbn,
+        Price = book.Price,
+        StockQuantity = book.StockQuantity,
+        PublishedDate = book.PublishedDate,
+        CreatedAt = book.CreatedAt
+    };
 }
